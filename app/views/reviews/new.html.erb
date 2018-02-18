@@ -1,0 +1,27 @@
+<h1>Review#new</h1>
+<%= form_for @review do |f| %>
+<div class="col-md-6 col-md-offset-3">
+        <div class="field" id="star">
+            <%= f.label :star %>
+            <%= f.number_field :star, id: :review_star %>
+        </div>
+        <p>ニックネーム</p>
+        <p><%= f.text_field :nickname, :class => "form-control"  %></p>
+        <br>
+        
+        <p>レビュー</p> 
+        <p><%= f.text_field :review, :class => "form-control", :size => "50x20"  %></p>
+         <%= f.hidden_field :hotel_id, :value => 1 %>
+         <br>
+		 <%= f.submit "レビューを投稿する", :class => "btn btn-primary" %>
+ </div>
+<% end %>
+
+<script>
+	$('#star').raty({
+	  size     : 20,
+	  starOff: '/images/star-off.png',
+	  starOn : '/images/star-on.png',
+	  scoreName: 'review[star]' 
+	});
+</script>

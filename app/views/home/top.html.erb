@@ -1,0 +1,15 @@
+<div class="home title">
+	<h1><span class="logo?"></span>
+		<br>日本中の空き家に宿泊して旅しよう。</h1>
+</div>
+<div class="search row">
+	<div class="col-md-10">
+		<%= form_tag(hotels_path, method: :get) do %>
+ 	 		<%= text_field_tag :search,'', placeholder: '「白馬」などエリアを入力して検索', class: "text_field"  %>
+  	</div>
+  	<div class="button col-md-2">
+  			<%= submit_tag 'Search', class: "btn btn-danger"  %>
+	<% end %>
+	</div>
+</div>
+

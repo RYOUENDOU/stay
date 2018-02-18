@@ -1,0 +1,43 @@
+@import "bootstrap-sprockets";
+@import "bootstrap";
+@import "bootstrap-datetimepicker";
+@import "font-awesome";
+
+
+
+// 各要素のスタイルの読み込み
+@import "home";
+@import "header";
+@import "hotels";
+@import "reviews";
+@import "reservations";
+
+body{
+	font-family: "Yu Gothic";
+	font-size: 15px;
+	color: #696969;
+}
+
+
+.navbar-brand {
+  background: url("/images/logo.jpg") no-repeat left center;
+  background-size: contain;
+  margin: 1px;
+  height: 50px;
+  width: 50px;
+}
+
+.item img{
+	width: 100%;
+}
+
+.table .btn a {
+	color: white;
+}
+
+p.line{
+	border-width: 1px 0px 0px 0px; /* 太さ */
+   	border-style: solid; /* 線種 */
+   	border-color: #a9a9a9;   /* 線色 */
+   	margin: 10px 0 30px;
+}

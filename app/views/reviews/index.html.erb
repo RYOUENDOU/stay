@@ -1,0 +1,20 @@
+<div class="f_review">
+	<% @reviews.each do |review| %>
+		<span><%= review.nickname %></span>
+		<p><div class = "star" data-score = <%= review.star %> ></div></p>
+		<p>review<%= review.review %></p>
+	<% end %>
+</div>
+
+
+<script>
+	 $('.star').raty({
+      size     : 20,
+	  starOff: '/images/star-off.png',
+	  starOn : '/images/star-on.png',
+      readOnly: true,
+      score: function() {
+            return $(this).attr('data-score');
+    }
+  });
+</script>

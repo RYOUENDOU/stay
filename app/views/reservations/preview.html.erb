@@ -1,0 +1,72 @@
+
+<div class="col-md-4 col-md-offset-1">
+	<div class="preview_1">
+		<p class="preview1_1">
+			<%= @reservation.hotel.name %>
+		<span>
+			<%= attachment_image_tag @hotel.hotel_images.first, :image, :fill, 300, 200, format: "jpg" %>
+		</span>
+		</p>
+		<p class="line"></p>
+		<p>
+			<i class="fas fa-users"></i>宿泊<%= @reservation.guest_count %>名
+		</p>
+		<p>
+			<i class="far fa-calendar-alt"></i><%= @reservation.check_in.strftime('%Y年%m月%d日') %>→<%= @reservation.check_out.strftime('%Y年%m月%d日' )%>
+		</p>
+		<p class="line"></p>
+		<p>
+			¥<%= @reservation.hotel.price %> /1泊
+		</p>
+		<p>
+			清掃費 ---円
+		</p>
+		<p class="line"></p>
+		<p class="preview1_3">
+			合計金額 ¥<%= @reservation.total %>円		
+		</p>
+		<%= link_to "編集", hotel_path(@reservation.hotel_id),class: "btn btn-danger" %>
+	</div>	
+</div>
+
+<div class="col-md-7">
+	<h3>お部屋の決まりごと</h3>
+		<div>
+			<p>チェックイン、チェックアウト時間</p>
+			<p>禁煙、喫煙</p>
+			<p>ペット可、不可</p>
+			<p>パーティー・イベント可否</p>
+			<p class="input-group">その他（守って欲しいこと）</p>
+		</div>
+	<h3>お客様情報入力<h3>
+	<%= form_for @reservation, url: hotel_reservations_path do |f| %>
+			<div class="form-group">
+	        	    <div class='input-group'>
+	                <%= f.text_field :user_name, :class => 'form-control',:placeholder => '氏名' %>
+	                </div>
+			</div>
+			<div class="form-group">
+	            	<div class='input-group'>
+	                <%= f.text_field :address, :class => 'form-control',:placeholder => '住所' %>
+	            	</div>
+			</div>
+			<div class="form-group">
+	            	<div class='input-group'>
+	                <%= f.text_field :tel, :class => 'form-control',:placeholder => '電話番号(09011115678・ハイフンなし)' %>
+	            	</div>
+			</div>
+			<div class="form-group">
+	            	<div class='input-group'>
+	                <%= f.text_field :request, :class => 'form-control form_box',:placeholder => '確認事項：（例）空気清浄機はございますか？' %>
+	            	</div>
+			</div>
+			<!-- hidden_field -->
+			<%= f.hidden_field :check_in, value: @reservation.check_in %>	
+			<%= f.hidden_field :check_out, value: @reservation.check_out %>	
+			<%= f.hidden_field :guest_count, value: @reservation.guest_count %>	
+			<%= f.hidden_field :total, value: @reservation.total %>	
+			
+
+			<%= f.submit "予約する", class: "btn btn-warning" %>
+	<% end %>
+</div>  

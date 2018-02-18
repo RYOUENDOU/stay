@@ -1,0 +1,46 @@
+// Place all the styles related to the hotels controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+
+.image {
+	border-radius: 5px;
+}
+
+.name{
+	font-size: 20px;
+    font-weight: bold;
+    color: #696969;
+}
+
+.address{
+	color: #000000;
+}
+
+
+.price{
+	font-size: 25px;
+	font-family: impact;
+	color: #000000;
+}
+
+
+.map_index {
+	position: fixed;
+	right: 0;
+}
+
+
+.reservation{
+	border: 1px solid #a9a9a9;
+	padding: 30px;
+}
+
+.form-control{
+	height: 50px;
+}
+
+.btn-danger {
+    width: 100%;
+    margin: 10px 0 10px;
+}

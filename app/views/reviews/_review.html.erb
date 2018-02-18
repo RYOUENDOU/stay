@@ -1,0 +1,29 @@
+<div class="f_review">
+	<% @reviews.each do |review| %>
+		<div class="each_column">
+			<span class="nickname">
+				<%= review.nickname %>	
+			</span>
+			<span class = "star" data-score = <%= review.star %> >
+			</span>
+			<p class=""><%= review.created_at.strftime("%Y年%m月%d日") %></p>
+		</div>
+		<p>
+			<%= review.review %>
+		</p>
+		<p class="line"></p>
+	<% end %>
+</div>
+
+
+<script>
+	 $('.star').raty({
+      size     : 20,
+	  starOff: '/images/star-off.png',
+	  starOn : '/images/star-on.png',
+      readOnly: true,
+      score: function() {
+            return $(this).attr('data-score');
+    }
+  });
+</script>

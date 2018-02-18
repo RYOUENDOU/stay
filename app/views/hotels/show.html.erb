@@ -1,0 +1,123 @@
+<div class="container-fluid">
+		<div class="row">
+	 <!-- carousel-image -->
+				<% if @hotel.hotel_images.present? && @hotel.hotel_images.second.present? %>
+				    <div id="carousel-img" class="carousel slide show_img_box" data-ride="carousel">
+        				<div class="carousel-inner">
+         					 <% @hotel.hotel_images.each_with_index do |image, i| %>
+            					<div class="item <%= i == 0 ? 'item active' : 'item' %>">
+              						<%= attachment_image_tag image, :image, :fill, 1200, 500, format: "jpg" %>
+            					</div>
+          					<% end %>
+        			</div>
+      					  <ol class="carousel-indicators">
+          					<% @hotel.hotel_images.each_with_index do |image, i| %>
+            					<li data-target="#carousel-img" data-slide-to="<%= i %>" class="<%= i == 0 ? 'active' : '' %>"></li>
+				            <% end %>
+        				  </ol>
+					        <a class="left carousel-control fix left_radius" href="#carousel-img" data-slide="prev">
+					          <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+					        </a>
+					        <a class="right carousel-control fix right_radius" href="#carousel-img" data-slide="next">
+					          <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+					        </a>
+					    </div>
+
+				<% elsif @hotel.hotel_images.present? && @hotel.hotel_images.second.blank? %>
+					<%= attachment_image_tag @hotel.hotel_images.first, :image, :fill, 1000, 500, class: "img-responsive" %>
+
+				<% else %>
+					<div class="no_image">
+					<%= image_tag("/images/noimage.jpg", :size => "1000x500") %>
+					</div>	
+				<% end %>	
+		</div>
+	</div>
+
+		<!-- Main Info -->
+		<div class="container">
+			<div class="col-md-8">
+				<h1><%= @hotel.name %>
+					<br><span class="", style="font-size: 20px;"><%= @hotel.hotel_type %> | 
+						<i class="fa fa-map-marker" aria-hidden="true"></i><%= @hotel.address %></span></h1>
+				    	
+						<span><i class="fa fa-users" aria-hidden="true"></i> ゲスト<%= @hotel.accomodate %>人</span> 
+					    <span><i class="fa fa-bed" aria-hidden="true"></i> <%= @hotel.bedroom %>寝室</span> 
+					    <span><i class="fa fa-bath" aria-hidden="true"></i> バスルーム<%= @hotel.bathroom %></span> 
+						<br>
+						<br>
+						<span><i class="fa fa-file-text-o" aria-hidden="true"></i> 概要<br><%= @hotel.summary %></span>
+						<p class="line"></p>
+					
+					<h3>アメニティ・設備</h2><!-- Amenities -->
+						<div class="amenities"> 
+							<i class="fa fa-television" aria-hidden="true"></i>
+							<span><%= del_tag_if(@amenity.is_tv, "TV") %></span>
+							
+							<i class="fa fa-cutlery" aria-hidden="true"></i>
+							<span><%= del_tag_if(@amenity.is_kitchen, "キッチン") %></span>
+							
+							<i class="fa fa-wifi" aria-hidden="true"></i>
+							<span><%= del_tag_if(@amenity.is_internet, "WIFI") %></span>
+
+							<i class="fa fa-snowflake-o" aria-hidden="true"></i>
+							<span><%= del_tag_if(@amenity.is_air, "エアコン") %></span>
+							<i class="fa fa-car" aria-hidden="true"></i>
+							<span><%= del_tag_if(@amenity.is_parking, "駐車場") %></span>
+						</div>
+						<p class="line"></p>
+					<h3> レビューを見る</h2>
+							<div class="review">
+								<p><%= render 'reviews/review' %></p>			
+							</div>
+			</div>
+
+
+			<br>
+			<div class="col-md-4" >
+				<div class="reservation">
+					<p><%= link_to "予約カレンダー一覧", hotel_reservation_calendar_index_path(@hotel),reservation_calendar: @reservation_calendar %></p>
+						<span class = "price">¥<%= @hotel.price %>円</span>/１泊
+					<p class="line"></p>
+					</p>
+					<p><%= render 'reservations/form',reservation: @reservation, count: @count %>	
+					</p>
+
+					<% if @reservation_calendar.nil? %>
+						<p><%= link_to "カレンダー作成へ",hotel_reservation_calendar_index_path(@hotel), class: "btn btn-info btn-sm" %></p>
+					<% end %>
+				</div>
+			</div>
+		</div>
+		<!-- Google Map -->
+		<div class="row">
+				<div id="map"></div>
+				<style>
+					#map{
+						width: 100%;
+						height: 400px;
+					}
+				</style>
+				<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyClisGW_Pfx6DpOScdwCshzyz-X_U-gQS8"></script>
+			    <script>
+			      function initialize() {
+			        var mapCanvas = document.getElementById('map');
+			        var mapOptions = {
+			          center: new google.maps.LatLng(<%= @hotel.latitude %>, <%= @hotel.longitude %>),
+			          zoom: 14,
+			          mapTypeId: google.maps.MapTypeId.ROADMAP
+			        }
+			        var map = new google.maps.Map(mapCanvas, mapOptions);
+
+			        var marker = new google.maps.Marker({
+			        	position: new google.maps.LatLng(<%= @hotel.latitude %>, <%= @hotel.longitude %>),
+			        	title: "stay"
+			        });
+			        marker.setMap(map);
+			      }
+			      google.maps.event.addDomListener(window, 'load', initialize);
+			    </script>
+		</div>
+
+
+<%= link_to "編集", edit_hotel_path %>	
