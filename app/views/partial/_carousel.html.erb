@@ -22,10 +22,11 @@
 			        </a>
 			</div>
 		<% elsif @hotel.hotel_images.present? && @hotel.hotel_images.second.blank? %>
-			<%= attachment_image_tag @hotel.hotel_images.first, :image, :fill, 1000, 500, class: "img-responsive" %>
-
+			<div class="carousel_2">
+				<%= attachment_image_tag @hotel.hotel_images.first, :image, :fill, 1200, 500, class: "img-thumbnail" %>
+			</div>
 		<% else %>
-			<div class="no_image">
+			<div class="carousel_3">
 				<%= image_tag("/images/noimage.jpg", :size => "1000x500") %>
 			</div>	
 		<% end %>	

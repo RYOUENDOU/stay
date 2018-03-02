@@ -4,7 +4,7 @@ class Hotel < ApplicationRecord
 	has_many :reservations
 	has_many :reservation_calendars
   has_many :reviews
-  has_one :rule
+  has_one :rule, dependent: :destroy
   
 	accepts_attachments_for :hotel_images, attachment: :image
   accepts_nested_attributes_for :amenity

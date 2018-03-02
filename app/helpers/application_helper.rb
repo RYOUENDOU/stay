@@ -28,6 +28,14 @@ module ApplicationHelper
  		end
  	end
 
+ 	def guest_total(hotel)
+ 		if hotel.reservations.presence
+ 			guest_total = hotel.reservations.pluck(:guest_count).inject(:+)
+ 		else
+ 			result = 0
+ 		end
+	end
+
  	# admin権限 review(delete)
  	def admin_delete (admin, id)
  		if admin.admin_flg == true

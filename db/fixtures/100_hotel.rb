@@ -12,5 +12,6 @@
     hotel.address = "山梨県北杜市小淵沢町4000"     
     hotel.latitude = 35.1814464
     hotel.longitude = 136.906398
+    hotel.active = true
  end
 end

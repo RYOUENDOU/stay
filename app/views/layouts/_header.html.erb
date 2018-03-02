@@ -27,6 +27,9 @@
           <li class="nav-item active">
             <%= link_to "ログアウト", destroy_user_session_path, method: :delete,class: "nav-link" %>
           </li>
+          <li class="nav-item active">
+            <%= link_to "ホストになる", new_hotel_path, class: "nav-link" %>
+          </li>
           
           <% if current_user.admin_flg == true %>
             <li class="nav-item active">
@@ -37,12 +40,12 @@
             </li>
           <% end %>
       <% else %>           
-            <li class="nav-item active"><%= link_to "サインイン", new_user_registration_path, class: "nav-link" %></li>
+            <li class="nav-item active"><%= link_to "新規登録", new_user_registration_path, class: "nav-link" %></li>
             <li class="nav-item active"><%= link_to "ログイン", user_session_path, class: "nav-link" %></li>      
       <% end %>        
     </ul>
         <% if user_signed_in? %>
-        <p class="navbar-text navbar-right">ようこそ <a href="#" class="navbar-link"><%= current_user.email %></a> さん。</p>
+        <p class="navbar-text navbar-right">ようこそ<%= current_user.email %> さん。</p>
         <% end %>
       </div>
     </div>

@@ -3,10 +3,15 @@
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
 // カルーセル
-.no_image{
+
+.carousel_2,
+.carousel_3{
 	text-align: center;
 }
 
+
+
+// show body
 .index{
 	padding-top: 30px;
 }
@@ -65,5 +70,9 @@
 }
 
 .google_map{
-	padding-bottom: 200px;
+	padding-bottom: 160px;
+}
+
+.block{
+	padding-bottom: 70px;
 }

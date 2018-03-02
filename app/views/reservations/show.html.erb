@@ -1,6 +1,8 @@
+<div class="container">
 <div class="row r_detail">
 	<div class="col-md-8 col-md-offset-2">
 	<h3>下記の内容で予約が完了しました。</h3>
+		<p class="line"></p>
 		<div class="preview_1">
 			<p>
 				ご宿泊先：<%= @reservation.hotel.name %>
@@ -18,17 +20,20 @@
 			<p>
 				チェックアウト日：<%= @reservation.check_out.strftime('%Y年%m月%d日' )%>
 			</p>
-			<p class="line"></p>
-			<p class="preview1_3">
-				合計金額 ¥<%= @reservation.total %>円		
+			<p>
+				合計金額 ¥<%= @reservation.total.to_s(:currency) %>
 			</p>
 		
 			<p class="line"></p>
+
 			<h3>お客様情報</h3>
-			<p>お客様名：<%= @reservation.user_name %></p>
+			<p>お客様名：<%= @reservation.guest_name %></p>
 			<p>ご住所：<%= @reservation.address %></p>
 			<p>電話番号：<%= @reservation.tel %></p>
+			<p>メールアドレス：<%= @reservation.user.email %></p>
 			<p>ご要望：<%= @reservation.request %></p>
 		</div>
+		<%= link_to "予約一覧に戻る", reservations_path, class: "btn btn-default" if current_user.admin_flg == true %>
 	</div>  
+</div>
 </div>

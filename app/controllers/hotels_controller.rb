@@ -16,9 +16,8 @@ class HotelsController < ApplicationController
 	end
 	def show 
 		@reservation_calendar = @hotel.reservation_calendars
-		@reviews = @hotel.reviews
-		@reviews = Review.order("created_at DESC")
-						 .page(params[:page]).per(5)
+		@reviews = @hotel.reviews.order("created_at DESC")
+						 		 .page(params[:page]).per(5)
 		#予約フォーム
 		@reservation = Reservation.new
 		# jsカレンダー選択不可日
@@ -29,8 +28,8 @@ class HotelsController < ApplicationController
 
 	def new
 		@hotel = Hotel.new
-		@hotel.amenities.build
-		@hotel.rule.build
+		@hotel.build_amenity
+		@hotel.build_rule
 	end
 
 	def create

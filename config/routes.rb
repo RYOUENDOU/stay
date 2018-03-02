@@ -6,7 +6,7 @@ Rails.application.routes.draw do
 	resources :reservation_calendar, only: [:index,:new, :create, :update, :destroy]
     get 'reservation/', to: 'reservations#preview', as: 'preview'
     resources :reservations
-    resources :reviews, only: :index
+    resources :reviews, only: [:index, :new, :create]
   end
   #admin routes
   scope 'admin' do

@@ -10,7 +10,7 @@ class CreateHotels < ActiveRecord::Migration[5.1]
       t.text :summary
       t.string :address
       t.integer :price
-      t.boolean :active
+      t.boolean :active, null: false, default: false
       t.float :latitude
       t.float :longitude
       

@@ -4,10 +4,11 @@
 
 	def index
 		if current_user.admin_flg == true
-			@reservations = Reservation.all
+			@reservations = Reservation.all.order("created_at DESC")
+								   .page(params[:page]).per(30)
 		else
-			@reservations = @hotel.reservations
-		end
+			@reservations = @hotel.reservations.order("created_at DESC")
+		end                                    .page(params[:page]).per(10)
 	end
 
 	def show

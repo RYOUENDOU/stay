@@ -30,7 +30,7 @@
 				<%= link_to "全部見る", hotel_reviews_path(@hotel) %>
 			</button>
 			<button type="button" class="btn btn-default	">
-				<%= link_to "レビュー作成", hotel_reviews_path(@hotel) %>
+				<%= link_to "レビュー作成", new_hotel_review_path(@hotel) %>
 			</button>	
 		</h3>
 			<%= render 'partial/review' %>
@@ -40,17 +40,21 @@
 			<br>
 			<div id="sidebar", class="col-md-4" >
 				<div id="nav", class="reservation">
-					<p><%= link_to "予約カレンダー一覧", hotel_reservation_calendar_index_path(@hotel),reservation_calendar: @reservation_calendar %></p>
-						<span class = "price">¥<%= @hotel.price.to_s(:currency) %>円</span>/１泊
+						<span class = "price">
+						 ¥ <%= @hotel.price.to_s(:currency) %>	
+						 </span>/1泊<br>
+						 <small>
+						 	 過去<%= guest_total(@hotel) %>人のお客様が宿泊しております。
+						 </small>
 					<p class="line"></p>
 					<% if @reservation_calendar.empty? %>
 						<p>現在、宿泊を受け付けておりません。</p>
-						<%= link_to "カレンダー作成へ", hotel_reservation_calendar_index_path(@hotel), class: "btn btn-info btn-sm" %>
+						<%= link_to "カレンダー作成へ", hotel_reservation_calendar_index_path(@hotel), class: "btn btn-info btn-sm" if current_user.admin_flg == true%>
 					<% else %>
 						<%= render 'reservations/form',reservation: @reservation, count: @count %>
 					<% end %>
 				</div>
-			</div>
+			</div> <!-- col-md-4 -->
 
 
 		<script>
@@ -92,3 +96,5 @@
 			      google.maps.event.addDomListener(window, 'load', initialize);
 			    </script>
 		</div>
+</div>
+<div class="block"></div>
