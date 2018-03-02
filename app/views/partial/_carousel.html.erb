@@ -1,0 +1,33 @@
+<div class="container-fluid">
+	<div class="row"><!-- carousel-image -->
+		<% if @hotel.hotel_images.present? && @hotel.hotel_images.second.present? %>
+		    <div id="carousel-img" class="carousel slide show_img_box" data-ride="carousel">
+				<div class="carousel-inner">
+ 					 <% @hotel.hotel_images.each_with_index do |image, i| %>
+    					<div class="item <%= i == 0 ? 'item active' : 'item' %>">
+      						<%= attachment_image_tag image, :image, :fill, 1200, 500, format: "jpg" %>
+    					</div>
+  					<% end %>
+				</div>
+					  <ol class="carousel-indicators">
+  					<% @hotel.hotel_images.each_with_index do |image, i| %>
+    					<li data-target="#carousel-img" data-slide-to="<%= i %>" class="<%= i == 0 ? 'active' : '' %>"></li>
+		            <% end %>
+				  </ol>
+			        <a class="left carousel-control fix left_radius" href="#carousel-img" data-slide="prev">
+			          <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+			        </a>
+			        <a class="right carousel-control fix right_radius" href="#carousel-img" data-slide="next">
+			          <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+			        </a>
+			</div>
+		<% elsif @hotel.hotel_images.present? && @hotel.hotel_images.second.blank? %>
+			<%= attachment_image_tag @hotel.hotel_images.first, :image, :fill, 1000, 500, class: "img-responsive" %>
+
+		<% else %>
+			<div class="no_image">
+				<%= image_tag("/images/noimage.jpg", :size => "1000x500") %>
+			</div>	
+		<% end %>	
+	</div>
+</div>

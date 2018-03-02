@@ -8,13 +8,10 @@
     <script defer src="https://use.fontawesome.com/releases/v5.0.6/js/all.js"></script>
   <script defer src="https://use.fontawesome.com/releases/v5.0.6/js/v4-shims.js"></script>
     <%= csrf_meta_tags %>
-    <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
-    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+    <%= stylesheet_link_tag 'application', media: 'all' %>
+    <%= javascript_include_tag 'application' %>
   </head>
   <%= render 'layouts/header' %>
-  <br>
-  <br>
-  <br>
   <body>
     <%= yield %>
   </body>

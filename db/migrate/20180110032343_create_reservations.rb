@@ -7,7 +7,7 @@ class CreateReservations < ActiveRecord::Migration[5.1]
       t.integer  :guest_count
   	  t.date  :check_in, null: false
       t.date :check_out, null: false
-      t.string :user_name
+      t.string :guest_name
       t.string :address
       t.string :tel
       t.text :request

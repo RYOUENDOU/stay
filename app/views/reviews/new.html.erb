@@ -1,9 +1,12 @@
-<h1>Review#new</h1>
-<%= form_for @review do |f| %>
+<%= form_for @review, url: hotel_reviews_path do |f| %>
 <div class="col-md-6 col-md-offset-3">
+<h3>新規レビュー作成ページ</h3>
+        <div class="form-group">
+          <%= f.attachment_field :profile_image %> 
+        </div>  
         <div class="field" id="star">
             <%= f.label :star %>
-            <%= f.number_field :star, id: :review_star %>
+            <%= f.hidden_field :star, id: :review_star %>
         </div>
         <p>ニックネーム</p>
         <p><%= f.text_field :nickname, :class => "form-control"  %></p>
@@ -11,9 +14,9 @@
         
         <p>レビュー</p> 
         <p><%= f.text_field :review, :class => "form-control", :size => "50x20"  %></p>
-         <%= f.hidden_field :hotel_id, :value => 1 %>
-         <br>
-		 <%= f.submit "レビューを投稿する", :class => "btn btn-primary" %>
+         <%= f.hidden_field :hotel_id, :value => @hotel.id %>
+        <br>
+		<%= f.submit "レビューを投稿する", :class => "btn btn-primary" %>
  </div>
 <% end %>
 

@@ -13,7 +13,6 @@
 //= require underscore
 //= require gmaps/google
 //= require rails-ujs
-//= require turbolinks
 //= require jquery
 //= require bootstrap-sprockets
 //= require moment

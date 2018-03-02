@@ -4,7 +4,7 @@
     amenity.is_tv = true
     amenity.is_kitchen = true
     amenity.is_air = true
-    amenity.is_internet = true
+    amenity.is_internet = false
     amenity.is_parking = true
     amenity.hotel_id = i + 1    
  end

@@ -2,6 +2,14 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
+// カルーセル
+.no_image{
+	text-align: center;
+}
+
+.index{
+	padding-top: 30px;
+}
 
 .image {
 	border-radius: 5px;
@@ -43,4 +51,19 @@
 .btn-danger {
     width: 100%;
     margin: 10px 0 10px;
+}
+
+
+#sidebar {
+  position: relative;		
+}
+
+.fixed {
+  position: fixed;
+  top: 90px;
+  width: 350px;
+}
+
+.google_map{
+	padding-bottom: 200px;
 }

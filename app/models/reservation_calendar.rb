@@ -11,7 +11,7 @@ class ReservationCalendar < ApplicationRecord
    def self.get_vacancy(date)
     model = self.pluck(:select_date)
     model.each do |select_date| 
-      return result = "◯" if select_date == date
+      return result = "◯" if select_date == date && select_date > Date.today
     end
       return result = "×"
    end

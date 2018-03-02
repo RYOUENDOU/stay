@@ -32,17 +32,10 @@ class ReservationCalendarController < ApplicationController
 	  @reservation_calendar.hotel_id = params[:hotel_id] 
       if @reservation_calendar.save
         redirect_to hotel_reservation_calendar_index_path, notice: '予約カレンダーに登録されました'
-   
       else
         render :new
       end
     end
-
-	def show
-	end
-
-	def edit
-	end
 
 	def update
 		if @reservation_calendar.update(reservation_calendar_params)

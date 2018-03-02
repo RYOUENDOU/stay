@@ -1,6 +1,13 @@
+<div class="review">
 <div class="f_review">
 	<% @reviews.each do |review| %>
+		<h3 class="hotel_name">
+			<%= review.hotel.name if current_user.admin_flg == true %>	
+		</h3>
 		<div class="each_column">
+			<span class="">
+				<%= attachment_image_tag review, :profile_image, :fill, 50, 50, format: "jpg" %>
+			</span>
 			<span class="nickname">
 				<%= review.nickname %>	
 			</span>
@@ -11,8 +18,13 @@
 		<p>
 			<%= review.review %>
 		</p>
+			<span>
+				<%= admin_delete(current_user, review.id) %>
+			</span>
 		<p class="line"></p>
 	<% end %>
+</div>
+<%= paginate @reviews %>
 </div>
 
 

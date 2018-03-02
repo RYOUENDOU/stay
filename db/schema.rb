@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180208043721) do
+ActiveRecord::Schema.define(version: 20180301052521) do
 
   create_table "amenities", force: :cascade do |t|
     t.boolean "is_tv"
@@ -32,8 +32,8 @@ ActiveRecord::Schema.define(version: 20180208043721) do
   end
 
   create_table "hotels", force: :cascade do |t|
-    t.string "hotel_type"
-    t.string "room_type"
+    t.integer "hotel_type"
+    t.integer "room_type"
     t.integer "accomodate"
     t.integer "bedroom"
     t.integer "bathroom"
@@ -63,7 +63,7 @@ ActiveRecord::Schema.define(version: 20180208043721) do
     t.integer "guest_count"
     t.date "check_in", null: false
     t.date "check_out", null: false
-    t.string "user_name"
+    t.string "guest_name"
     t.string "address"
     t.string "tel"
     t.text "request"
@@ -73,8 +73,22 @@ ActiveRecord::Schema.define(version: 20180208043721) do
 
   create_table "reviews", force: :cascade do |t|
     t.string "nickname"
+    t.string "profile_image_id"
     t.integer "star"
     t.text "review"
+    t.string "hotel_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "rules", force: :cascade do |t|
+    t.integer "cancellation"
+    t.time "check_in_time"
+    t.time "check_out_time"
+    t.boolean "smoking"
+    t.boolean "pet"
+    t.boolean "party"
+    t.text "rule"
     t.string "hotel_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -93,6 +107,7 @@ ActiveRecord::Schema.define(version: 20180208043721) do
     t.string "last_sign_in_ip"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.boolean "admin_flg", default: false, null: false
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end

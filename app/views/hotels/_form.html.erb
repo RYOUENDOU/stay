@@ -1,104 +1,75 @@
-<div class="panel panel-default">
-  <div class="panel-heading">
-    Create your beautiful place
-  </div>
-  <div class="panel-body">
-    <div class="container">
+<div class="container-fluid">
+    <div class="row"><!-- ホテル概要 -->
       <%= form_for(@hotel) do |f| %>
-        <div class="row">
-          <div class="col-md-4 select">
-            <div class="form-group">
-              <label>ホテルタイプ</label>
-              <!--[key, value]-->
-              <%= f.select :hotel_type, [["ホテル", "ホテル"], ["旅館", "旅館"], ["民泊", "民泊"]], id: 'hotel_type', prompt: '選択してください', class: 'form-control' %>
+      <h3>ホテル概要入力</h3>
+            <div class="col-md-8">
+              <div class="form-group">
+              <label>宿泊先名</label>
+                <%= f.text_field :name, placeholder: '名称', class: 'form-control' %>
             </div>
-          </div>
-
-          <div class="col-md-4 select">
-            <div class="form-group">
-              <label>Room Type</label>
-              <%= f.select :room_type, [["個室", "個室"], ["相部屋", "相部屋"], ["貸切", "貸切"]], prompt: '選択してください', class: 'form-control' %>
-            </div>
-          </div>
-
-          <div class="col-md-4 select">
-            <div class="form-group">
-              <label>Accomodate</label>
-              <%= f.select :accomodate, [["1", 1], ["2", 2], ["3", 3], ["4", 4], ["5", 5], ["6+", 6]], prompt: '選択してください', class: 'form-control' %>
-            </div>
-          </div>
-
+    </div>
+    <div class="row">
+      <div class="col-md-8">
+        <div class="form-group">
+          <label>概要</label>
+          <%= f.text_area :summary, rows: 5, placeholder: 'ホテルの説明', class: 'form-control' %>
         </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-8">
+        <div class="form-group">
+          <label>宿泊先住所</label>
+          <%= f.text_field :address, placeholder: '住所を都道府県から入力してください', class: 'form-control' %>
+        </div>
+     </div>
+    </div>
+    <div class="row">
+      <div class="col-md-4">
+        <div class="form-group">
+          <label>宿泊施設タイプ</label>
+         <%= f.select :hotel_type, Hotel.hotel_types.keys.to_a, {}, prompt: '選択してください', class: 'form-control' %>
+        </div>
+      </div>
+
+      <div class="col-md-4">
+        <div class="form-group">
+          <label>お部屋タイプ</label>
+          <%= f.select :room_type, Hotel.room_types.keys.to_a, {}, prompt: '選択してください', class: 'form-control' %>
+        </div>
+      </div>
+
+      <div class="col-md-4">
+        <div class="form-group">
+          <label>部屋数</label>
+          <%= f.select :accomodate, [["1", 1], ["2", 2], ["3", 3], ["4", 4], ["5", 5], ["6部屋以上", 6]], prompt: '選択してください', class: 'form-control' %>
+        </div>
+      </div>
+    </div> <!-- row -->
 
         <div class="row">
-          <div class="col-md-4 select">
+          <div class="col-md-4">
             <div class="form-group">
-              <label>Bedrooms</label>
+              <label>ベッド、布団の数</label>
               <%= f.select :bedroom, [["1", 1], ["2", 2], ["3", 3], ["4+", 4]], prompt: '選択してください', class: 'form-control' %>
             </div>
           </div>
 
-          <div class="col-md-4 select">
+          <div class="col-md-4">
             <div class="form-group">
-              <label>Bathrooms</label>
+              <label>お風呂の数</label>
               <%= f.select :bathroom, [["1", 1], ["2", 2], ["3", 3], ["4+", 4]], prompt: '選択してください', class: 'form-control' %>
             </div>
           </div>
-        </div>
-
-        <div class="row">
-            <div class="form-group">
-              <label>Name</label>
-              <%= f.text_field :name, placeholder: '名称', class: 'form-control' %>
-            </div>
-        </div>
-
-          <div class="row">
-            <div class="form-group">
-              <label>description</label>
-              <%= f.text_area :summary, rows: 5, placeholder: 'ホテルの説明', class: 'form-control' %>
-            </div>
-          </div>
-
-          <div class="row">
-            <div class="form-group">
-              <label>Address</label>
-              <%= f.text_field :address, placeholder: '住所を都道府県から入力してください', class: 'form-control' %>
-            </div>
-          </div>
-
-          <div class="row">
-            <div class="col-md-4">
-              <%= f.fields_for :amenities do |a| %>
-              <div class="form-group">
-                <label><%= a.check_box :is_tv %> TV</label>
-              </div>
-              <div class="form-group">
-                <label><%= a.check_box :is_kitchen %> Kitchen</label>
-              </div>
-              <div class="form-group">
-                <label><%= a.check_box :is_air %> Internet</label>
-              </div>
-            </div>
-
-            <div class="col-md-4">
-              <div class="form-group">
-                <label><%= a.check_box :is_internet %> Heating</label>
-              </div>
-              <div class="form-group">
-                <label><%= a.check_box :is_parking %> Air Conditioning</label>
-              </div>
-            </div>
-          </div>
-        <% end %>
+        </div> <!-- row -->
 
           <div class="row">
             <div class="col-md-4">
               <div class="form-group">
-                <label>Nightly Price</label>
+                <label>宿泊料金(１泊あたり）</label>
                 <div class="input-group">
-                  <div class="input-group-addon">$</div>
-                  <%= f.text_field :price, placeholder: 'e.g. $100', class: 'form-control' %>
+                  <div class="input-group-addon">¥</div>
+                  <%= f.text_field :price, placeholder: '13500', class: 'form-control' %>
                 </div>
               </div>
             </div>
@@ -108,17 +79,67 @@
             <div class="col-md-4">
               <div class="form-group">
                 <span class="btn btn-default btn-file">
-                  <i class="fa fa-cloud-upload fa-lg"></i> 画像投稿 
+                  <i class="fa fa-cloud-upload fa-lg"></i>  宿泊先画像投稿（複数枚可） 
                   <%= f.attachment_field :hotel_images_images, multiple: true %>
                 </span>
               </div>
             </div>
           </div>
 
+            <div class="col-md-6">
+            <h3>アメニティの有無(ある場合にチェック）</h3>
+              <%= f.fields_for :amenity do |a| %>
+                <div class="form-group">
+                  <label><%= a.check_box :is_tv %> テレビ</label>
+                </div>
+                <div class="form-group">
+                  <label><%= a.check_box :is_kitchen %> キッチン</label>
+                </div>
+                <div class="form-group">
+                  <label><%= a.check_box :is_air %> 冷暖房設備</label>
+                </div>
+                <div class="form-group">
+                  <label><%= a.check_box :is_internet %> WIFI</label>
+                </div>
+                <div class="form-group">
+                  <label><%= a.check_box :is_parking %> 駐車場</label>
+               </div>
+            <% end %>
+            </div>
+
+            <!-- キャンセルポリシー -->
+            <div class="col-md-6">
+            <h3>お部屋の決まりごと/キャンセル条件</h3>
+              <%= f.fields_for :rule do |c| %>
+                <div class="form-group">
+                  <label>キャンセル条件<%= c.select :cancellation, Rule.cancels.keys.to_a, {} %></label>
+                </div>
+                <div class="form-group">
+                  <label>チェックイン時間<%= c.time_select :check_in_time, class: "form-control" %></label>
+                </div>
+                <div class="form-group">
+                  <label>チェックアウト時間<%= c.time_select :check_out_time, class: "form-control" %></label>
+                </div>
+               <div class="form-group">
+                  <label>喫煙可<%= c.check_box :smoking %></label>
+                </div>
+                <div class="form-group">
+                  <label>ペット可<%= c.check_box :pet %></label>
+               </div>
+               <div class="form-group">
+                  <label>パーティー・イベント可<%= c.check_box :party %></label>
+               </div>
+              <div class="form-group">
+                  <label>その他、禁止事項<%= c.text_field :rule %></label>
+               </div>
+            </div>
+        <% end %>
+       </div>
+
     
           <div class="row">
             <div class="form-group">
-              <label><%= f.check_box :active %> Active</label>
+              <label><%= f.check_box :active %>宿泊可否</label>
             </div>
           </div>
 
@@ -126,6 +147,5 @@
             <%= f.submit "Save", class: "btn btn-primary" %>
           </div>
       <% end %>
-    </div>
-  </div>
+</div>
 </div>

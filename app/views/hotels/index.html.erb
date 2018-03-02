@@ -1,22 +1,24 @@
-	<div class="col-md-8">
-			<% @hotels.each do |hotel| %>
-				<%= link_to hotel, class: "list" do %>
-					<div class="col-md-4 list">
-				 	<% if hotel.hotel_images.present? %>
-				 		<% hotel.hotel_images.each do |image| %>
-				 			<%= attachment_image_tag image, :image, :fill, 300, 200, :class => "image" %>
-				 		<% break %>
-				        <% end %>
-				    <% else %>
-				        <%= image_tag("/images/noimage.jpg", :size => "300x200", :class => "image") %>
-				    <% end %>
-					      <p class="name"><%= hotel.name %></p>
-					      <p class="address"><%= hotel.address %></p>
-					      <p class="price"><%= hotel.price %>円/1泊</p>
-					</div>	
-				<% end %>
-			<% end %>
-	</div>
+<div class="row index">
+<div class="col-md-8">
+	<% @hotels.each do |hotel| %>
+		<%= link_to hotel, class: "list" do %>
+			<div class="col-md-4 list">
+		 	<% if hotel.hotel_images.present? %>
+		 		<% hotel.hotel_images.each do |image| %>
+		 			<%= attachment_image_tag image, :image, :fill, 300, 200, :class => "image" %>
+		 		<% break %>
+		        <% end %>
+		    <% else %>
+		        <%= image_tag("/images/noimage.jpg", :size => "300x200", :class => "image") %>
+		    <% end %>
+			      <p class="name"><%= hotel.name %></p>
+			      <p class="address"><%= hotel.address %></p>
+			      <p class="price"><%= hotel.price.to_s(:currency) %>/1泊</p>
+			</div>	
+		<% end %>
+	<% end %>
+	<%= paginate @hotels %>
+</div>
 <div class="col-md-4 map_index">
 		<div id="map" style="width: 100%; height: 700px;">
 				<script>
@@ -29,3 +31,4 @@
 					</script>
 		</div>
 </div>
+</div> <!-- row -->

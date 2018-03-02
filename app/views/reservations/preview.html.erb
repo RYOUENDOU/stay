@@ -1,44 +1,43 @@
-
-<div class="col-md-4 col-md-offset-1">
-	<div class="preview_1">
-		<p class="preview1_1">
+<div class="col-md-4 col-md-offset-2">
+	<div class="preview1 preview1_1">
+		<p class="p_title">
 			<%= @reservation.hotel.name %>
-		<span>
-			<%= attachment_image_tag @hotel.hotel_images.first, :image, :fill, 300, 200, format: "jpg" %>
-		</span>
+		<p>
+			<%= attachment_image_tag @hotel.hotel_images.first, :image, :fill, 400, 200, format: "jpg", class: "img-responsive" %>
+		</p>
 		</p>
 		<p class="line"></p>
 		<p>
-			<i class="fas fa-users"></i>宿泊<%= @reservation.guest_count %>名
+			<i class="fas fa-users"></i> 宿泊人数 <%= @reservation.guest_count %>名
 		</p>
 		<p>
-			<i class="far fa-calendar-alt"></i><%= @reservation.check_in.strftime('%Y年%m月%d日') %>→<%= @reservation.check_out.strftime('%Y年%m月%d日' )%>
+			<i class="far fa-calendar-alt"></i> <%= @reservation.check_in.strftime('%Y年%m月%d日') %>→ <%= @reservation.check_out.strftime('%Y年%m月%d日' )%>
 		</p>
 		<p class="line"></p>
 		<p>
-			¥<%= @reservation.hotel.price %> /1泊
+			¥<%= @reservation.hotel.price %> / 1泊
 		</p>
 		<p>
 			清掃費 ---円
 		</p>
 		<p class="line"></p>
 		<p class="preview1_3">
-			合計金額 ¥<%= @reservation.total %>円		
+			宿泊合計 ¥<%= @reservation.total.to_s(:currency) %>	（税込）	
 		</p>
-		<%= link_to "編集", hotel_path(@reservation.hotel_id),class: "btn btn-danger" %>
+		<%= link_to "前のページに戻る", hotel_path(@reservation.hotel_id), class: "btn btn-danger" %>
 	</div>	
 </div>
 
-<div class="col-md-7">
-	<h3>お部屋の決まりごと</h3>
-		<div>
-			<p>チェックイン、チェックアウト時間</p>
-			<p>禁煙、喫煙</p>
-			<p>ペット可、不可</p>
-			<p>パーティー・イベント可否</p>
-			<p class="input-group">その他（守って欲しいこと）</p>
-		</div>
-	<h3>お客様情報入力<h3>
+<div class="col-md-4">
+	<div class="preview2">
+	<h3>＜お家の決まりごと＞</h3>
+			<%= render 'partial/rule'  %>
+			<div class="attention0_1">
+				<span class="attention1_1">ホストからのお願い</span><br>
+				<%= @hotel.rule.rule %>
+			</div>
+		<p class="line"></p>
+	<h3>お客様情報入力</h3>
 	<%= form_for @reservation, url: hotel_reservations_path do |f| %>
 			<div class="form-group">
 	        	    <div class='input-group'>
@@ -65,8 +64,8 @@
 			<%= f.hidden_field :check_out, value: @reservation.check_out %>	
 			<%= f.hidden_field :guest_count, value: @reservation.guest_count %>	
 			<%= f.hidden_field :total, value: @reservation.total %>	
-			
 
-			<%= f.submit "予約する", class: "btn btn-warning" %>
+			<%= f.submit "予約する", class: "btn btn-success" %>
 	<% end %>
+	</div> <!-- preview_2 -->
 </div>  

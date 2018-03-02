@@ -27,9 +27,11 @@ module ApplicationHelper
 	 	   amenity
  		end
  	end
+
+ 	# admin権限 review(delete)
+ 	def admin_delete (admin, id)
+ 		if admin.admin_flg == true
+ 			link_to "削除", review_path(id), method: :delete, class: "btn btn-danger"
+ 		end
+ 	end
 end
- # 	def total(a,b,c)
-	# 	dif = b - a
-	# 	nights = dif.to_i
-	# 	nights * c
-	# end

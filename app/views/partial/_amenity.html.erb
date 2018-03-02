@@ -1,0 +1,25 @@
+<div class="amenities"> 
+	<i class="fa fa-television" aria-hidden="true"></i>
+	<span>
+		<%= del_tag_if(@hotel.amenity.is_tv, "TV") %>
+	</span>
+	
+	<i class="fa fa-cutlery" aria-hidden="true"></i>
+	<span>
+		<%= del_tag_if(@hotel.amenity.is_kitchen, "キッチン") %>
+	</span>
+	
+	<i class="fa fa-wifi" aria-hidden="true"></i>
+	<span>
+		<%= del_tag_if(@hotel.amenity.is_internet, "WIFI") %>
+	</span>
+
+	<i class="fa fa-snowflake-o" aria-hidden="true"></i>
+	<span>
+		<%= del_tag_if(@hotel.amenity.is_air, "エアコン") %>
+	</span>
+	<i class="fa fa-car" aria-hidden="true"></i>
+	<span>
+		<%= del_tag_if(@hotel.amenity.is_parking, "駐車場") %>
+	</span>
+</div>

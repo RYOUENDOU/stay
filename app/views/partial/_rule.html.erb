@@ -1,0 +1,11 @@
+<div class="rule_form"> 
+	チェックイン:<%= @hotel.rule.check_in_time.strftime("%H:%M")  %>
+	<br>
+	チェックアウト:<%= @hotel.rule.check_out_time.strftime("%H:%M")  %>
+	<br>
+	<span><%= del_tag_if(@hotel.rule.smoking, "喫煙") %></span>
+	<span><i class="fa fa-paw" aria-hidden="true"></i><%= del_tag_if(@hotel.rule.pet, "ペット") %>
+	</span>
+	<span><i class="fa fa-glass" aria-hidden="true"></i><%= del_tag_if(@hotel.rule.party, "イベント・パーティー") %>
+	</span>
+</div>

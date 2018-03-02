@@ -1,73 +1,46 @@
-<div class="main-contents">
-
-  <h1>予約可能日</h1>
-
-  <div class="btn-box">
-    <%= link_to '新規作成', new_hotel_reservation_calendar_path, class: "btn btn-primary btn-sm" %>
-  </div>
-
-  <div class="table-responsive">
-    <table id="table" class="table table-condensed table-hover">
-    <thead>
-      <tr>
-        <th>チェックイン可能日</th>
-        <th colspan="1"></th>
-      </tr>
-    </thead>
-      <tbody>
-        <% @reservation_calendar.each do |reservation_calendar| %>
+<div class="col-md-8 col-md-offset-2">
+  <h3>予約可能日の設定</h3>
+  <div class="calendar1_1">
+    <table id="table" class="table">
+      <p>
+        <%= link_to "前月", controller: "reservation_calendar", action: "index", month_id: 0 %>
+          | 
+        <%= @today.strftime("< %Y 年/ %m 月>") %>
+          |
+        <%= link_to "次月", controller: "reservation_calendar", action: "index", month_id: 1 %></p>
+      <thead class="thead-inverse">
+        <tr>
+          <% t('date.abbr_day_names').each do |day_name| %>
+            <th>
+              <%= day_name %>
+            </th>
+          <% end %>
+        </tr>
+      </thead>
+      <% @calendar_data.each do |date| %>
+        <% if date.wday == 0 %>
           <tr>
-            <td><%= reservation_calendar.select_date %></td>
-            <% if reservation_calendar.status == true %>            　
-              <td class="btn-in-table"><%= link_to '削除', hotel_reservation_calendar_path(id:reservation_calendar.id), :method => :delete, :confirm => '削除しますか?' , class: "btn btn-danger btn-sm" %></td>            
-            <% end %>
+         <% end %>
+            <td>
+              <p><%= date.day %></p>
+              <p><%= vacancy_link( @reservation_calendar.get_vacancy(date) )%></p>
+              <% if (date).to_s <= (Date.today).to_s %>
+              <p><button type="button" class="btn btn-primary"><%= link_to "-", "" %></button></p>
+              <% elsif @reservation_calendar.get_vacancy(date) =="◯" %>
+              <p><button type="button" class="btn btn-warning"><%= link_to "削除",hotel_reservation_calendar_path(@reservation_calendar, hotel_id: @hotel.id, select_date: date), method: :delete %></button></p>
+              <% else %>
+              <p><button type="button" class="btn btn-success"><%= link_to "追加",hotel_add_date_path(hotel_id: @hotel.id, select_date: date), method: :post %></button></p>
+              <% end %>  
+            </td>
+        <% if date.wday == 6 %>
           </tr>
         <% end %>
-      </tbody>
-    </table>
-  </div>
-<table id="table" class="table">
-  <p><%= link_to "前月", controller: "reservation_calendar", action: "index", month_id: 0 %>
-      | <%= @today.strftime("< %Y 年/ %m 月>") %>
-      |<%= link_to "次月", controller: "reservation_calendar", action: "index", month_id: 1 %></p>
-  <thead class="thead-inverse">
-    <tr>
-      <% t('date.abbr_day_names').each do |day_name| %>
-        <th>
-          <%= day_name %>
-        </th>
       <% end %>
-       </tr>
-  </thead>
-  <% @calendar_data.each do |date| %>
-    <% if date.wday == 0 %>
-      <tr>
-     <% end %>
-        <td>
-          <p><%= date.day %></p>
-          <p><%= vacancy_link( @reservation_calendar.get_vacancy(date) )%></p>
-         <!--  <p><%= edit_link(@reservation_calendar.new_destroy(date), date, @hotel)%></p>
-          -->  
-          　<!-- 試し書き -->
-          <% if (date).to_s <= (Date.today).to_s %>
-          <p><button type="button" class="btn btn-primary"><%= link_to "不可", "" %></button></p>
-          <% elsif @reservation_calendar.get_vacancy(date) =="◯" %>
-          <p><button type="button" class="btn btn-warning"><%= link_to "削除",hotel_reservation_calendar_path(@reservation_calendar, hotel_id: @hotel.id, select_date: date), method: :delete %></button></p>
-          <% else %>
-          <p><button type="button" class="btn btn-success"><%= link_to "追加",hotel_add_date_path(hotel_id: @hotel.id, select_date: date), method: :post %></button></p>
-          <% end %>  
-
-
-        </td>
-    <% if date.wday == 6 %>
-      </tr>
-
-    <% end %>
-  <% end %>
-</table>
-
-
+    </table>
+    <div class="calendar1_2">
+      <%= link_to "ホテルへ", hotel_path(@hotel), class: "btn btn-info " %>
+    </div>
+  </div> <!-- calendar -->
 </div>
 
 
-<%= link_to "ホテルへ", hotel_path(@hotel), class: "btn btn-info btn-sm" %>

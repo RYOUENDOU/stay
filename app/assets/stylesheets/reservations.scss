@@ -2,6 +2,56 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
+.preview1,
+.preview2{
+	margin-top: 30px;
+}
+
+.preview1_1{
+	text-align: center;
+	.attachment{
+		 box-shadow:0px 0px 10px;
+		 margin: 0 auto;
+	}
+}
+.attention0_1{
+	padding-top: 5px;
+	padding-left: 10px;
+	border:1px solid #a9a9a9;
+	height: 148px;
+    overflow: scroll;
+    width: 100%;
+	.attention1_1{
+		font-size: 17px;
+		font-weight: bold;
+		border-bottom: 1px dashed #a9a9a9;
+	}
+}
+
+
+.preview1 {
+	border: 1px solid #a9a9a9;
+	padding: 10px;
+	font-size: 20px;	
+			.btn{
+				width: 50%;
+			}	
+}
+
+
+
+.preview2{
+	.input-group,
+	.btn-success {
+		width: 100%;
+	}
+}
+
+.preview1_3{
+	padding: 20px 0;
+}
+
+// datetimepicker のデザイン
 .check_in,
 .check_out
 	{
@@ -15,19 +65,3 @@
 .btn-warning{
 	width: 80%;
 }
-
-.preview_1 {
-	border: 1px solid #a9a9a9;
-	padding: 30px;
-	font-size: 20px;
-}
-
-
-.preview1_1{
-	text-align: center;
-}
-
-.preview1_3{
-	padding: 20px 0;
-}
-

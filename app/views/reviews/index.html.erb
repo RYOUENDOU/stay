@@ -1,20 +1,11 @@
-<div class="f_review">
-	<% @reviews.each do |review| %>
-		<span><%= review.nickname %></span>
-		<p><div class = "star" data-score = <%= review.star %> ></div></p>
-		<p>review<%= review.review %></p>
-	<% end %>
+<div class="container">
+	<div class="row">
+		<h3>全てのレビュー</h3>
+			<div class="review1">
+				<%= render 'partial/review' %>
+			</div>
+			<button type="button" class="btn btn-default">
+				<%= link_to "ホテルページへ", hotel_path(@hotel) unless current_user.admin_flg == true %>
+			</button>
+	</div>
 </div>
-
-
-<script>
-	 $('.star').raty({
-      size     : 20,
-	  starOff: '/images/star-off.png',
-	  starOn : '/images/star-on.png',
-      readOnly: true,
-      score: function() {
-            return $(this).attr('data-score');
-    }
-  });
-</script>

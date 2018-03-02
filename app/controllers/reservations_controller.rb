@@ -1,12 +1,17 @@
-class ReservationsController < ApplicationController
-# before_action :authenticate_user!
-	before_action :set_reservation, :only => [:show, :edit, :update, :destroy]
+	class ReservationsController < ApplicationController
+	before_action :authenticate_user!, only: [:preview, :show, :create]
+	before_action :set_reservation, only: [:show, :edit, :update, :destroy]
 
 	def index
-		
+		if current_user.admin_flg == true
+			@reservations = Reservation.all
+		else
+			@reservations = @hotel.reservations
+		end
 	end
 
 	def show
+		@reservation = Reservation.find(params[:id])
 	end
 
     def preview
@@ -20,11 +25,16 @@ class ReservationsController < ApplicationController
 		@reservation.hotel_id = params[:hotel_id]
 		@reservation.user_id = current_user.id
 		if 
-			@reservation.save(set_available)
+			@reservation.save
+			set_available
 		else
 			flash[:notice] = "予約ができませんでした"
 			render action: 'preview' 
 		end
+		#メールの送信機能
+		NoticeMailer.send_mail(@reservation).deliver_now
+		render plain: "メールが正しく送信できました！"
+		
 		redirect_to hotel_reservation_path(@reservation.hotel_id, @reservation)
 	end
 
@@ -50,7 +60,8 @@ class ReservationsController < ApplicationController
 			params.require(:reservation)
 			.permit(:check_in, :check_out, :guest_count, :user_name, :address, :tel, :request, :total	 )
 		end
-		def set_available
+		
+		def set_available　#チェックアウト日を残すメソッドに変更
 			c = @reservation.check_in
 			d = @reservation.check_out
 			target = (c..d)
