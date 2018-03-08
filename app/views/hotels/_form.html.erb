@@ -1,3 +1,16 @@
+<% if @hotel.errors.any? %>
+  <div id="error_explanation" class="center-block">
+    <br>
+    <h2><%= @hotel.errors.count %>件のエラーがあります。</h2>
+ 
+    <ul>
+    <% @hotel.errors.full_messages.each do |msg| %>
+      <p><%= msg %></p>
+    <% end %>
+    </ul>
+  </div>
+<% end %>
+
 <div class="container">
     <div class="row"><!-- ホテル概要 -->
       <%= form_for(@hotel) do |f| %>

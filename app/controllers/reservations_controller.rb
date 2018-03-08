@@ -46,12 +46,11 @@ before_action :set_reservation, only: [:show, :edit, :update, :destroy]
 		@reservation.user_id = current_user.id
 		if 	@reservation.save 
 			set_available
-		else
+		else　#render確認必要
 			render action: 'preview', danger:  "予約ができませんでした"
 		end
 		#メールの送信機能
-		NoticeMailer.mail_condirm(@reservation).deliver_now
-		render success: "メールが正しく送信できました！"
+		NoticeMailer.mail_confirm(@reservation).deliver_now
 		redirect_to hotel_reservation_path(@reservation.hotel_id, @reservation), success: "予約が完了しました。"
 	end
 

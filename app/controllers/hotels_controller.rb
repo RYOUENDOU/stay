@@ -31,6 +31,7 @@ class HotelsController < ApplicationController
 	def create
 		@hotel = Hotel.new(hotel_params) 
 		 if @hotel.save
+		 NoticeMailer.owner_request(@user).deliver_now
 		 redirect_to hotel_url(id: hotel.id), success: "Thank you！"
 		 else
 		 	render 'new'

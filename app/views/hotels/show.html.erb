@@ -2,7 +2,7 @@
 <div class="container">
 	<div class="col-md-8">
 	<h1><%= @hotel.name %> 
-		<%= run_if(@hotel.active) if user_signed_in? %>
+		<%= run_if(@hotel.active) if user_signed_in? && current_user.admin_flg == true %>
 		<br><span class="", style="font-size: 20px;"><%= @hotel.hotel_type %> |  <%= @hotel.room_type %> |
 			<i class="fa fa-map-marker" aria-hidden="true"></i><%= @hotel.address %></span></h1>
 	    	
