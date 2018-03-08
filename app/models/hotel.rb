@@ -1,6 +1,6 @@
 class Hotel < ApplicationRecord
 	has_many :hotel_images, dependent: :destroy
-  has_many :reservations
+  has_many :reservations, dependent: :destroy
   has_many :reservation_calendars, dependent: :destroy
   has_many :reviews, dependent: :destroy
 	has_one :amenity, dependent: :destroy

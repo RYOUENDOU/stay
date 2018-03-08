@@ -1,33 +1,37 @@
 <div class="container">
-<div class="row">
-<table class="table table-hover">
-    <thead>
-        <tr>
-            <th>予約日時</th>
-            <th>宿泊先名</th>
-            <th>ゲスト名  </th>
-            <th>チェックイン日</th>
-            <th>チェックアウト日</th>
-            <th>合計金額</th>
-            <th>要望・質問</th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-        <% @reservations.each do |reservation| %>
-        <tr>
-            <td><%= reservation.created_at.strftime('%Y/%m/%d %H:%M:%S') %></td>
-            <td><%= reservation.hotel.name  %></td>
-            <td><%= reservation.guest_name  %></td>
-            <td><%= reservation.check_in %></td>
-            <td><%= reservation.check_out %></td>
-            <td><%= reservation.total.to_s(:currency) %></td>
-            <td><%= reservation.request %></td>
-            <td><%= link_to "予約詳細", reservation_path(reservation.id), class: "btn btn-default"  %></td>
-        </tr>
+    <div class="row">
+        <% if @reservations.present? %>
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th>予約日時</th>
+                    <th>宿泊先名</th>
+                    <th>ゲスト名  </th>
+                    <th>チェックイン日</th>
+                    <th>チェックアウト日</th>
+                    <th>合計金額</th>
+                    <th>要望・質問</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <% @reservations.each do |reservation| %>
+                <tr>
+                    <td><%= reservation.created_at.strftime('%Y/%m/%d %H:%M:%S') %></td>
+                    <td><%= reservation.hotel.name %></td>
+                    <td><%= reservation.guest_name %></td>
+                    <td><%= reservation.check_in %></td>
+                    <td><%= reservation.check_out %></td>
+                    <td><%= reservation.total.to_s(:currency) %></td>
+                    <td><%= reservation.request %></td>
+                    <td><%= link_to "予約詳細", reservation_path(reservation.id), class: "btn btn-default"  %></td>
+                </tr>
+                <% end %>
+            </tbody>
+        </table>
+        <% else %>
+        <h1>現在予約はございません。</h1>
+        <%= paginate @reservations %>
         <% end %>
-    </tbody>
-</table>
-<%= paginate @reservations %>
-</div>
+    </div>
 </div>

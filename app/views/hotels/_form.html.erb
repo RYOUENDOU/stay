@@ -155,9 +155,25 @@
             </div>
        </div> <!-- row -->
       <div class="row">
-        <div class="col-md-4 col-md-offset-2">
-            <%= f.submit "Save", class: "btn btn-primary" %>
+          <div class="col-md-4 col-md-offset-2">
+            <div class="form-group">
+                  <label>オーナー名</label>
+                    <%= f.text_field :owner_name, placeholder: 'オーナーの名前', class: 'form-control' %>
+            </div>
+          </div>
+            <div class="col-md-4">
+              <div class="form-group">
+                <label>オーナー電話番号</label>
+                <%= f.text_field :owner_tel, placeholder: 'オーナーの電話番号', class: 'form-control' %>
+              </div>
+            </div>
+              <!-- owner id = user_id -->             
+              <%= f.hidden_field :owner_id, value: current_user.id %>
         </div>
+        <div class="row">
+            <div class="col-md-8 col-md-offset-2">
+              <%= f.submit "Save", class: "btn btn-primary" %>
+            </div>
         <% end %>
       </div>
 </div>

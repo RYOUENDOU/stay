@@ -42,6 +42,9 @@ ActiveRecord::Schema.define(version: 20180301052521) do
     t.string "address"
     t.integer "price"
     t.boolean "active", default: false, null: false
+    t.integer "owner_id", default: 1, null: false
+    t.string "owner_name", null: false
+    t.string "owner_tel", null: false
     t.float "latitude"
     t.float "longitude"
     t.datetime "created_at", null: false

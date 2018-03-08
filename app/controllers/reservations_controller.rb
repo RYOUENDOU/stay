@@ -7,6 +7,7 @@ before_action :set_reservation, only: [:show, :edit, :update, :destroy]
 			@reservations = Reservation.all.order("created_at DESC")
 								   	   .page(params[:page]).per(30)
 		else
+			@hotel = Hotel.find(params[:hotel_id])
 			@reservations = @hotel.reservations.order("created_at DESC")
 		end                                    .page(params[:page]).per(10)
 	end
@@ -46,7 +47,7 @@ before_action :set_reservation, only: [:show, :edit, :update, :destroy]
 		@reservation.user_id = current_user.id
 		if 	@reservation.save 
 			set_available
-		else　#render確認必要
+		else
 			render action: 'preview', danger:  "予約ができませんでした"
 		end
 		#メールの送信機能

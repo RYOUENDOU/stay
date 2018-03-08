@@ -13,5 +13,8 @@
     hotel.latitude = 35.1814464
     hotel.longitude = 136.906398
     hotel.active = true
+    hotel.owner_id = 1
+    hotel.owner_name = "ステイ空家"
+    hotel.owner_tel = "09012345678"     
  end
 end

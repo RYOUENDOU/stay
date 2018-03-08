@@ -1,5 +1,5 @@
 class HotelsController < ApplicationController
-	before_action :set_admin, except: [:index, :show]
+	before_action :admin_user, only: [:edit, :update, :destroy]
  	before_action :set_hotel, only: [:show, :edit, :update, :destroy]
     before_action :delete_past_dates, only: [:show]
 	def index
@@ -32,7 +32,7 @@ class HotelsController < ApplicationController
 		@hotel = Hotel.new(hotel_params) 
 		 if @hotel.save
 		 NoticeMailer.owner_request(@user).deliver_now
-		 redirect_to hotel_url(id: hotel.id), success: "Thank you！"
+		 redirect_to hotel_path(@hotel), success: "Thank you！管理者へリクエストされました！"
 		 else
 		 	render 'new'
 		 end
@@ -59,9 +59,8 @@ class HotelsController < ApplicationController
 
 
 	private
-		
-		def set_admin
-			current_user.admin_flg == true
+		def admin_user
+			redirect_to home_path unless current_user.admin_flg?
 		end
 	
 		def set_hotel
@@ -83,7 +82,7 @@ class HotelsController < ApplicationController
 	    	params.require(:hotel).permit(
 	        :hotel_type, :room_type, :accomodate,
 	        :bedroom, :bathroom, :listing_name,
-	        :summary, :address, :name, :price, :active, hotel_images_images: [],
+	        :summary, :address, :name, :price, :active, :owner_id, :owner_name, :owner_tel, hotel_images_images: [],
 	        amenity_attributes: [:is_tv, :is_kitchen,
 	        :is_air, :is_parking, :is_internet], rule_attributes: [:cancellation, :check_in_time,
 	        :check_out_time, :smoking, :pet, :party, :rule], reservation_calendares_attributes:[:select_date])
@@ -92,7 +91,7 @@ class HotelsController < ApplicationController
 	    	params.require(:hotel).permit(
 	        :hotel_type, :room_type, :accomodate,
 	        :bedroom, :bathroom, :listing_name,
-	        :summary, :address, :name, :price, :active, hotel_images_images: [],
+	        :summary, :address, :name, :price, :active, :owner_name, :owner_tel, hotel_images_images: [],
 	        amenity_attributes: [:id, :_destroy, :is_tv, :is_kitchen,
 	        :is_air, :is_parking, :is_internet], rule_attributes: [:id, :_destroy, :cancellation, :check_in_time,
 	        :check_out_time, :smoking, :pet, :party, :rule], reservation_calendares_attributes:[:select_date])

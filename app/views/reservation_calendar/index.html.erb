@@ -22,14 +22,22 @@
           <tr>
          <% end %>
             <td>
-              <p><%= date.day %></p>
-              <p><%= vacancy_link( @reservation_calendar.get_vacancy(date) )%></p>
+              <p>
+                <%= date.day %>
+              </p>
+              <p>
+                <%= vacancy_link( @reservation_calendar.get_vacancy(date) )%>
+              </p>
               <% if (date).to_s <= (Date.today).to_s %>
-              <p><button type="button" class="btn btn-primary"><%= link_to "-", "" %></button></p>
+                <p>NG</p>
               <% elsif @reservation_calendar.get_vacancy(date) =="◯" %>
-              <p><button type="button" class="btn btn-warning"><%= link_to "削除",hotel_reservation_calendar_path(@reservation_calendar, hotel_id: @hotel.id, select_date: date), method: :delete %></button></p>
+                <p>
+                  <button type="button" class="btn btn-warning"><%= link_to "削除",hotel_reservation_calendar_path(@reservation_calendar, hotel_id: @hotel.id, select_date: date), method: :delete %></button>
+                </p>
               <% else %>
-              <p><button type="button" class="btn btn-success"><%= link_to "追加",hotel_add_date_path(hotel_id: @hotel.id, select_date: date), method: :post %></button></p>
+                <p>
+                  <button type="button" class="btn btn-success"><%= link_to "追加",hotel_add_date_path(hotel_id: @hotel.id, select_date: date), method: :post %></button>
+                </p>
               <% end %>  
             </td>
         <% if date.wday == 6 %>
@@ -39,13 +47,13 @@
     </table>
   </div> <!-- calendar -->
   <div>
-      <p> ○　予約可能な日付です。クリックいただくと予約ができます。
+      <p> ○ 予約可能な日付です。
       </p>
       <p>
-       ✕　すでに予約が埋まっているため予約できません。
+       ✕ 予約不可の日付です。
       </p>
       <p>
-       -　予約を受け付けていない日付です。
+       NG 予約を受け付けていない日付です。
       </p>
   </div>
     <div class="calendar1_2">

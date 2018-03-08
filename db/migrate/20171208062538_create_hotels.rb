@@ -11,6 +11,9 @@ class CreateHotels < ActiveRecord::Migration[5.1]
       t.string :address
       t.integer :price
       t.boolean :active, null: false, default: false
+      t.integer :owner_id, null: false, default: 1
+      t.string :owner_name, null: false
+      t.string :owner_tel, null: false
       t.float :latitude
       t.float :longitude
       

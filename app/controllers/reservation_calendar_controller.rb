@@ -19,7 +19,7 @@ class ReservationCalendarController < ApplicationController
 	    if @reservation_calendar.save
         	redirect_to hotel_reservation_calendar_index_path, success: '予約カレンダーに登録されました'
       	else
-        render :new
+        render :index
       	end
 	end
 
@@ -34,17 +34,9 @@ class ReservationCalendarController < ApplicationController
       if @reservation_calendar.save
         redirect_to hotel_reservation_calendar_index_path, success: '予約カレンダーに登録されました'
       else
-        render :new
+        render :index
       end
     end
-
-	def update
-		if @reservation_calendar.update(reservation_calendar_params)
-        	redirect_to hotel_reservation_calendar_path, notice: '予約カレンダーは更新されました'
-      	else
-        	render :edit
-      	end
-	end
 
 	def destroy
 		@date = params[:select_date]

@@ -24,7 +24,7 @@
 		
 		<p class="line"></p>
 		<% if @hotel.reviews.empty? %>
-			<%= link_to "レビュー作成", new_hotel_review_path(@hotel.id), class: "btn btn-primary" %>
+			<p><%= link_to "レビュー作成", new_hotel_review_path(@hotel.id), class: "btn btn-primary" %></p>	
 		<% else %>
 		<h3>レビュー
 			<button type="button" class="btn btn-default">
@@ -49,7 +49,7 @@
 						 	 過去<%= guest_total(@hotel) %>人のお客様が宿泊しております。
 						 </small>
 					<% if user_signed_in? %>
-							<%= link_to "カレンダー作成へ", 	hotel_reservation_calendar_index_path(@hotel), class: "btn btn-info btn-sm" if current_user.admin_flg == true %>
+							<%= link_to "カレンダー作成へ", hotel_reservation_calendar_index_path(@hotel), class: "btn btn-info btn-sm" if current_user.id == @hotel.owner_id %>
 					<% end %>
 					<p class="line"></p>
 					<% if @reservation_calendar.empty? || @hotel.stop? %>
