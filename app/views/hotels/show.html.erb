@@ -1,7 +1,8 @@
 <%= render "partial/carousel" %>
 <div class="container">
 	<div class="col-md-8">
-	<h1><%= @hotel.name %>
+	<h1><%= @hotel.name %> 
+		<%= run_if(@hotel.active) if user_signed_in? %>
 		<br><span class="", style="font-size: 20px;"><%= @hotel.hotel_type %> |  <%= @hotel.room_type %> |
 			<i class="fa fa-map-marker" aria-hidden="true"></i><%= @hotel.address %></span></h1>
 	    	
@@ -38,7 +39,8 @@
 	</div> <!-- col-md-8 -->
 
 			<br>
-			<div id="sidebar", class="col-md-4" >
+			<div class="col-md-4">
+			<div id="sidebar" >
 				<div id="nav", class="reservation">
 						<span class = "price">
 						 ¥ <%= @hotel.price.to_s(:currency) %>	
@@ -46,28 +48,32 @@
 						 <small>
 						 	 過去<%= guest_total(@hotel) %>人のお客様が宿泊しております。
 						 </small>
+					<% if user_signed_in? %>
+							<%= link_to "カレンダー作成へ", 	hotel_reservation_calendar_index_path(@hotel), class: "btn btn-info btn-sm" if current_user.admin_flg == true %>
+					<% end %>
 					<p class="line"></p>
-					<% if @reservation_calendar.empty? %>
+					<% if @reservation_calendar.empty? || @hotel.stop? %>
 						<p>現在、宿泊を受け付けておりません。</p>
-						<%= link_to "カレンダー作成へ", hotel_reservation_calendar_index_path(@hotel), class: "btn btn-info btn-sm" if current_user.admin_flg == true%>
 					<% else %>
 						<%= render 'reservations/form',reservation: @reservation, count: @count %>
 					<% end %>
 				</div>
+			</div>
+			<br>
+			<!-- side bar -->
+			<script>
+				var nav = $('#nav'),
+				offset = nav.offset();
+				$(window).scroll(function () {
+				  	if($(window).scrollTop() > offset.top - 20) {
+			    		nav.addClass('fixed');
+			 	 	} else {
+			    		nav.removeClass('fixed');
+			  		}
+					});
+			</script>
 			</div> <!-- col-md-4 -->
 
-
-		<script>
-			var nav = $('#nav'),
-			offset = nav.offset();
-			$(window).scroll(function () {
-			  	if($(window).scrollTop() > offset.top - 20) {
-		    		nav.addClass('fixed');
-		 	 	} else {
-		    		nav.removeClass('fixed');
-		  		}
-				});
-		</script>
 		<!-- Google Map -->
 		<div class="col-md-8 google_map">
 				<div id="map"></div>

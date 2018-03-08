@@ -1,3 +1,2 @@
 module ReservationCalendarHelper
-	
 end

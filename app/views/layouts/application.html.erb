@@ -1,18 +1,25 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title>Stay</title>
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyClisGW_Pfx6DpOScdwCshzyz-X_U-gQS8" type="text/javascript"></script>
-    <script src="https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/markerclusterer.js">
-    </script>
-    <script defer src="https://use.fontawesome.com/releases/v5.0.6/js/all.js"></script>
-  <script defer src="https://use.fontawesome.com/releases/v5.0.6/js/v4-shims.js"></script>
-    <%= csrf_meta_tags %>
-    <%= stylesheet_link_tag 'application', media: 'all' %>
-    <%= javascript_include_tag 'application' %>
-  </head>
-  <%= render 'layouts/header' %>
-  <body>
-    <%= yield %>
-  </body>
+	<head>
+		<title>Stay</title>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyClisGW_Pfx6DpOScdwCshzyz-X_U-gQS8" type="text/javascript"></script>
+		<script src="https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/markerclusterer.js">
+		</script>
+		<script defer src="https://use.fontawesome.com/releases/v5.0.6/js/all.js"></script>
+	<script defer src="https://use.fontawesome.com/releases/v5.0.6/js/v4-shims.js"></script>
+		<%= csrf_meta_tags %>
+		<%= stylesheet_link_tag 'application', media: 'all' %>
+		<%= javascript_include_tag 'application' %>
+	</head>
+	<%= render 'layouts/header' %>
+	<body>
+		<% flash.each do |key, value| %>
+			<div class="alert alert-<%= key %>">
+				<%= value %>
+			</div>
+		<% end %>
+			<%= yield %>
+	</body>
 </html>

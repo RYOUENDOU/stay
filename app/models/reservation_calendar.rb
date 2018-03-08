@@ -1,12 +1,6 @@
 class ReservationCalendar < ApplicationRecord
    belongs_to :hotel
    validates :select_date, presence: true
-   # validate :start_end_check
-
-   # def start_end_check
-   #  errors.add(:end_date, "の日付を正しく記入してください。") unless
-   #  self.start_date < self.end_date
-   # end
    
    def self.get_vacancy(date)
     model = self.pluck(:select_date)

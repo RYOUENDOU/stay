@@ -2,12 +2,12 @@
   <h3>予約可能日の設定</h3>
   <div class="calendar1_1">
     <table id="table" class="table">
-      <p>
-        <%= link_to "前月", controller: "reservation_calendar", action: "index", month_id: 0 %>
-          | 
-        <%= @today.strftime("< %Y 年/ %m 月>") %>
-          |
-        <%= link_to "次月", controller: "reservation_calendar", action: "index", month_id: 1 %></p>
+      <p> <!-- ↓helprer?? -->
+        <%= link_to "◀️", controller: "reservation_calendar", action: "index", month_id: 0%>| 
+        <%= @today.strftime("< %Y年%m月>") %>| 
+        <%= link_to "▶️", controller: "reservation_calendar", action: "index", month_id: 1 %>| 
+         <%= link_to "＞", controller: "reservation_calendar", action: "index", month_id: 2 %>
+        </p>
       <thead class="thead-inverse">
         <tr>
           <% t('date.abbr_day_names').each do |day_name| %>
@@ -37,10 +37,20 @@
         <% end %>
       <% end %>
     </table>
+  </div> <!-- calendar -->
+  <div>
+      <p> ○　予約可能な日付です。クリックいただくと予約ができます。
+      </p>
+      <p>
+       ✕　すでに予約が埋まっているため予約できません。
+      </p>
+      <p>
+       -　予約を受け付けていない日付です。
+      </p>
+  </div>
     <div class="calendar1_2">
       <%= link_to "ホテルへ", hotel_path(@hotel), class: "btn btn-info " %>
     </div>
-  </div> <!-- calendar -->
 </div>
 
 

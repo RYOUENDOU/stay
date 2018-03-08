@@ -5,10 +5,11 @@ class ReservationCalendarController < ApplicationController
 		@hotel = Hotel.find(params[:hotel_id])
 		@reservation_calendar = @hotel.reservation_calendars
 		# カレンダーのフォーマット定義
-		 @today = Date.today
-    	 from_date = Date.new(@today.year, @today.month, @today.beginning_of_month.day).beginning_of_week(:sunday)
-    	 to_date = Date.new(@today.year, @today.month, @today.end_of_month.day).end_of_week(:sunday)
-    	 @calendar_data = from_date.upto(to_date)
+		@month = params[:month_id]
+		@today = Date.today+@month.to_i.month  
+    	from_date = Date.new(@today.year, @today.month, @today.beginning_of_month.day).beginning_of_week(:sunday)
+    	to_date = Date.new(@today.year, @today.month, @today.end_of_month.day).end_of_week(:sunday)
+    	@calendar_data = from_date.upto(to_date)
 	end
 
 	def add_date
@@ -16,7 +17,7 @@ class ReservationCalendarController < ApplicationController
 	    @reservation_calendar.hotel_id = params[:hotel_id] 
 		@reservation_calendar.select_date = params[:select_date]
 	    if @reservation_calendar.save
-        	redirect_to hotel_reservation_calendar_index_path, notice: '予約カレンダーに登録されました'
+        	redirect_to hotel_reservation_calendar_index_path, success: '予約カレンダーに登録されました'
       	else
         render :new
       	end
@@ -31,7 +32,7 @@ class ReservationCalendarController < ApplicationController
 	  @reservation_calendar = ReservationCalendar.new(reservation_calendar_params)
 	  @reservation_calendar.hotel_id = params[:hotel_id] 
       if @reservation_calendar.save
-        redirect_to hotel_reservation_calendar_index_path, notice: '予約カレンダーに登録されました'
+        redirect_to hotel_reservation_calendar_index_path, success: '予約カレンダーに登録されました'
       else
         render :new
       end

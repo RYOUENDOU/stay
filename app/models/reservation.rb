@@ -1,20 +1,16 @@
 class Reservation < ApplicationRecord
 	belongs_to :user
 	belongs_to :hotel
-
-	validates :user_name, presence: true
-	validates :address, presence: true
-	
 	VALID_PHONE_REGEX = /\A\d{10}$|^\d{11}\z/
+	validates :guest_name, presence: true
+	validates :address, presence: true
 	validates :tel, presence: true, format: { with: VALID_PHONE_REGEX }
-	
 	validates :check_in, presence: true
 	validates :check_out, presence: true
+	validates :guest_count, presence: true
 
 	def total
-		a = check_in
-		b = check_out
-		dif = b - a
+		dif = check_out - check_in
 		nights = dif.to_i
 		price = Hotel.find(hotel_id).price
 		nights * price

@@ -17,7 +17,7 @@ body{
 	font-family: "Yu Gothic";
 	font-size: 15px;
 	color: #696969;
-	padding-top: 70px;
+	padding-top: 80px;
 }
 
 
@@ -30,4 +30,8 @@ p.line{
    	border-style: solid; /* 線種 */
    	border-color: #a9a9a9;   /* 線色 */
    	margin: 20px 0 10px;
+}
+
+.alert{
+	margin-bottom: 0;
 }

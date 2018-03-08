@@ -41,7 +41,7 @@ ActiveRecord::Schema.define(version: 20180301052521) do
     t.text "summary"
     t.string "address"
     t.integer "price"
-    t.boolean "active"
+    t.boolean "active", default: false, null: false
     t.float "latitude"
     t.float "longitude"
     t.datetime "created_at", null: false

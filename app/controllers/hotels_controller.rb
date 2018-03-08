@@ -1,16 +1,17 @@
 class HotelsController < ApplicationController
 	before_action :set_admin, except: [:index, :show]
  	before_action :set_hotel, only: [:show, :edit, :update, :destroy]
-
+    before_action :delete_past_dates, only: [:show]
 	def index
-		@hotels = Hotel.all.hotel_search(params[:search_word].presence)
-		.page(params[:page]).per(12)
-					  
-		
+		@hotels = Hotel.all.order("created_at DESC")
+					   .hotel_search(params[:search_word].presence)
+					   .page(params[:page]).per(12)					   
+					   			  
+		#google map 
 		@hash = Gmaps4rails.build_markers(@hotels) do |hotel, marker|
 		      	marker.lat hotel.latitude
 		      	marker.lng hotel.longitude
-		      	marker.infowindow hotel.summary
+		      	marker.infowindow hotel.name
 		      	marker.json({title: hotel.name})
 		end
 	end
@@ -18,12 +19,7 @@ class HotelsController < ApplicationController
 		@reservation_calendar = @hotel.reservation_calendars
 		@reviews = @hotel.reviews.order("created_at DESC")
 						 		 .page(params[:page]).per(5)
-		#予約フォーム
 		@reservation = Reservation.new
-		# jsカレンダー選択不可日
-		@count = @reservation_calendar.pluck(:select_date)
-		@count = @count.map{|c| c.strftime('%Y-%m-%d') }
-		@count = @count.to_json.html_safe
 	end
 
 	def new
@@ -34,21 +30,19 @@ class HotelsController < ApplicationController
 
 	def create
 		@hotel = Hotel.new(hotel_params) 
-		 if 
-		 	@hotel.save
+		 if @hotel.save
+		 redirect_to hotel_url(id: hotel.id), success: "Thank you！"
 		 else
 		 	render 'new'
 		 end
-		 redirect_to hotel_path (@hotel)
 	end
 
-	def edit
-			
+	def edit		
 	end
 	
 	def update
 		if @hotel.update(update_hotel_params)
-			redirect_to hotel_path
+			redirect_to hotel_path, success: "Updated！"
 		else
 			render :edit
 		end			
@@ -64,6 +58,7 @@ class HotelsController < ApplicationController
 
 
 	private
+		
 		def set_admin
 			current_user.admin_flg == true
 		end
@@ -72,6 +67,17 @@ class HotelsController < ApplicationController
 			@hotel = Hotel.find(params[:id])
 		end
 
+		def delete_past_dates
+			past_dates = @hotel.reservation_calendars.pluck(:select_date)
+			past_dates = past_dates.select{|c| c <= Date.today}
+			past_dates = past_dates.map{|c|c.strftime('%Y-%m-%d') }
+			past_dates.each do |p|
+				c = @hotel.reservation_calendars.find_by(select_date:p)
+				if c.present?
+					c.destroy
+				end
+			end
+		end
 		def hotel_params
 	    	params.require(:hotel).permit(
 	        :hotel_type, :room_type, :accomodate,

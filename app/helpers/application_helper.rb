@@ -28,6 +28,7 @@ module ApplicationHelper
  		end
  	end
 
+ 	# 過去の宿泊者数
  	def guest_total(hotel)
  		if hotel.reservations.presence
  			guest_total = hotel.reservations.pluck(:guest_count).inject(:+)
@@ -36,10 +37,31 @@ module ApplicationHelper
  		end
 	end
 
+	# jsカレンダー選択不可日
+ 	def count(hotel)
+ 		@count = @reservation_calendar.pluck(:select_date)
+		@count = @count.select{|c| c  > Date.today }
+		@out =  @count.map{|c|(c+1).strftime('%Y-%m-%d') }
+		@count = @count.map{|c| c.strftime('%Y-%m-%d') }
+		@count = @count + @out
+		@count = @count.to_json.html_safe
+ 	end
+
  	# admin権限 review(delete)
  	def admin_delete (admin, id)
- 		if admin.admin_flg == true
+ 		if user_signed_in? && (current_user.admin_flg == true)
  			link_to "削除", review_path(id), method: :delete, class: "btn btn-danger"
  		end
  	end
+
+ 	# 営業開始宣言
+	def run_if(active)
+		if active == "run"
+			link_to "宿泊不可にする", edit_hotel_path(@hotel), class: "btn btn-success"
+		else active == "stop"
+			link_to "宿泊可能にする", edit_hotel_path(@hotel), class: "btn btn-danger"
+		end
+	end
+
+
 end

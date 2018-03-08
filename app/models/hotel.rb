@@ -16,6 +16,7 @@ class Hotel < ApplicationRecord
 
   enum hotel_type:{ 一軒屋: 1, 別荘: 2, マンション: 3, アパート: 4, シャアハウス: 5, その他: 6 }
   enum room_type:{ 貸切: 1, 個室: 2, 相部屋: 3 }
+  enum active: { run: true, stop:false }
 
  #検索機能
   scope :hotel_search, ->(search_word){
@@ -24,4 +25,9 @@ class Hotel < ApplicationRecord
           .or(relation.where("hotels . name like '%#{search_word}%'").distinct)
     end
   }
+
+  
+
+
+
 end

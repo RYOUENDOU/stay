@@ -9,8 +9,8 @@ class ReviewsController < ApplicationController
     else
       @hotel = Hotel.find(params[:hotel_id])
       @reviews = @hotel.reviews
-      @reviews = Review.order("created_at DESC")
-                     .page(params[:page]).per(10)
+                       .order("created_at DESC")
+                       .page(params[:page]).per(10)
     end
   end
   def new
@@ -20,8 +20,9 @@ class ReviewsController < ApplicationController
   def create
   	@review = Review.new(review_params)
     @review.hotel_id = params[:hotel_id]
+    binding.pry
   	@review.save 
-  	redirect_to hotel_reviews_path  	
+  	redirect_to hotel_path(@review.hotel.id)  	
   end
 
   def destroy

@@ -1,18 +1,27 @@
 <div class="booking_form">
-	<%= form_for reservation, url: hotel_preview_path(@hotel), method: :get do |f| %>
+	<%= form_for @reservation, url: hotel_preview_path(@hotel), method: :post  do |f| %>
+          <% if @reservation.errors.any? %>
+              <div id="error_explanation">
+                <h2><%= @reservation.errors.count %>件のエラーがあります。</h2>
+                <ul>
+                <% @reservation.errors.messages.each do |msg| %>
+                  <li><%= msg %></li>
+                <% end %>
+                </ul>
+              </div>
+            <% end %>
 			<div class="form-group check_in">
 				<small>日付</small>
-               	<%= f.text_field :check_in, :class => 'form-control', :id =>'datetimepicker6', :placeholder => "チェックイン日"%>
-			</div>
-			<div class="form-group check_out">
+               	<%= f.text_field :check_in, :class => 'form-control', :id =>'datetimepicker6', :placeholder => "チェックイン日"%>        
+            </div>
+           <div class="form-group check_out">
 	            <%= f.text_field :check_out, :class => 'form-control', :id =>'datetimepicker7',:placeholder => "チェックアウト日"%>
 			</div>
 			<br>
 			<div class="form-group">
 				<small>宿泊人数</small>
-	            <%= f.number_field :guest_count, :min =>'1', :max => '5', :class => 'form-control', :placeholder => "人数を入力して下さい。"%>
+	            <%= f.number_field :guest_count, :min =>'1', :max => @hotel.accomodate, :class => 'form-control', :placeholder => "人数を入力して下さい。"%>
 	        </div>
-			
 			<div>
 				<%= f.submit "予約へ", class: "btn btn-danger" %>
 				<small>※予約確認画面へ進みます。</small>
@@ -23,9 +32,8 @@
  
 <script>
     $(function () {
-    	var c = <%= @count %>;
+    	var c = <%= count(@hotel) %>;
         $('#datetimepicker6').datetimepicker({
-            minDate: new Date(),
             viewMode: 'days',
             format: 'YYYY/MM/DD',
             enabledDates: c           

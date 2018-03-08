@@ -1,34 +1,34 @@
-<div class="row index">
-<div class="col-md-8">
-	<% @hotels.each do |hotel| %>
-		<%= link_to hotel, class: "list" do %>
-			<div class="col-md-4 list">
-		 	<% if hotel.hotel_images.present? %>
-		 		<% hotel.hotel_images.each do |image| %>
-		 			<%= attachment_image_tag image, :image, :fill, 300, 200, :class => "image" %>
-		 		<% break %>
-		        <% end %>
-		    <% else %>
-		        <%= image_tag("/images/noimage.jpg", :size => "300x200", :class => "image") %>
-		    <% end %>
-			      <p class="name"><%= hotel.name %></p>
-			      <p class="address"><%= hotel.address %></p>
-			      <p class="price"><%= hotel.price.to_s(:currency) %>/1泊</p>
+	<div class="col-md-8">
+		<% @hotels.each do |hotel| %>
+			<%= link_to hotel, class: "list" do %>
+			<div class="list">
+			<div class="col-sm-12 col-md-4">
+			 	<% if hotel.hotel_images.present? %>
+			 		<% hotel.hotel_images.each do |image| %>
+			 			<p><%= attachment_image_tag image, :image, :class => "index_image" %></p>
+			 		<% break %>
+			        <% end %>
+			    <% else %>
+			        <p><%= image_tag("/images/noimage.jpg", :class => "index_image") %></p>
+			    <% end %>
+				      <p class="name"><%= hotel.name %></p>
+				      <p class="address"><%= hotel.address %></p>
+				      <p class="price"><%= hotel.price.to_s(:currency) %>/1泊</p>
+			<% end %>
 			</div>	
 		<% end %>
-	<% end %>
-	<%= paginate @hotels %>
-</div>
-<div class="col-md-4 map_index">
+		</div>
+	</div>
+	<div class="hidden-sm col-md-4 map_index">
 		<div id="map" style="width: 100%; height: 700px;">
 				<script>
-					    handler = Gmaps.build('Google');
-					    handler.buildMap({ provider: {}, internal: {id: 'map'}}, function(){
-					      markers = handler.addMarkers(<%=raw @hash.to_json %>);
-					      handler.bounds.extendWith(markers);
-					      handler.fitMapToBounds();
-					    });
-					</script>
+				    handler = Gmaps.build('Google');
+				    handler.buildMap({ provider: {}, internal: {id: 'map'}}, function(){
+				      markers = handler.addMarkers(<%=raw @hash.to_json %>);
+				      handler.bounds.extendWith(markers);
+				      handler.fitMapToBounds();
+				    });
+				</script>
 		</div>
-</div>
-</div> <!-- row -->
+	</div>
+<p><%= paginate @hotels %></p>
