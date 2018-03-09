@@ -45,14 +45,14 @@ before_action :set_reservation, only: [:show, :edit, :update, :destroy]
 		@reservation = Reservation.new(reservation_params)		
 		@reservation.hotel_id = params[:hotel_id]
 		@reservation.user_id = current_user.id
-		if 	@reservation.save 
+		if @reservation.save 
 			set_available
+			#メールの送信機能
+			NoticeMailer.mail_confirm(@reservation).deliver_now
+			redirect_to hotel_reservation_path(@reservation.hotel_id, @reservation), success: "予約が完了しました。"
 		else
-			render action: 'preview', danger:  "予約ができませんでした"
+			render 'preview', danger:  "予約ができませんでした"
 		end
-		#メールの送信機能
-		NoticeMailer.mail_confirm(@reservation).deliver_now
-		redirect_to hotel_reservation_path(@reservation.hotel_id, @reservation), success: "予約が完了しました。"
 	end
 
 

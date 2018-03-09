@@ -30,11 +30,11 @@ class HotelsController < ApplicationController
 
 	def create
 		@hotel = Hotel.new(hotel_params) 
-		 if @hotel.save
-		 NoticeMailer.owner_request(@user).deliver_now
-		 redirect_to hotel_path(@hotel), success: "Thank you！管理者へリクエストされました！"
+		 if  @hotel.save
+			 NoticeMailer.owner_request(@user).deliver_now
+			 redirect_to hotel_path(@hotel), success: "Thank you！管理者へリクエストされました！"
 		 else
-		 	render 'new'
+		 	 render 'new'
 		 end
 	end
 

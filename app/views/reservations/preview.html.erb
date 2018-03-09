@@ -31,18 +31,43 @@
 <div class="col-md-4">
 	<div class="preview2">
 	<h3>＜お家の決まりごと＞</h3>
-			<%= render 'partial/rule'  %>
+			<div class="rule_form"> 
+				チェックイン:<%= @reservation.hotel.rule.check_in_time.strftime("%H:%M")  %>
+			<br>
+				チェックアウト:<%= @reservation.hotel.rule.check_out_time.strftime("%H:%M")  %>
+			<br>
+			<span>
+				<%= del_tag_if(@reservation.hotel.rule.smoking, "喫煙") %></span>
+			<span>
+				<i class="fa fa-paw" aria-hidden="true"></i><%= del_tag_if(@reservation.hotel.rule.pet, "ペット") %>
+			</span>
+			<span>
+				<i class="fa fa-glass" aria-hidden="true"></i><%= del_tag_if(@reservation.hotel.rule.party, "イベント・パーティー") %>
+			</span>
+			</div><br>
 			<div class="attention0_1">
 				<span class="attention1_1">ホストからのお願い</span><br>
-				<%= @hotel.rule.rule %>
+				<%= @reservation.hotel.rule.rule %>
 			</div>
 		<p class="line"></p>
 	<h3>お客様情報入力</h3>
 	<%= form_for @reservation, url: hotel_reservations_path do |f| %>
+		<% if @reservation.errors.any? %>
+			  <div id="error_explanation" class="center-block">
+			    <br>
+			    <h2><%= @reservation.errors.count %>件のエラーがあります。</h2>
+			 
+			    <ul>
+			    <% @reservation.errors.full_messages.each do |msg| %>
+			      <p><%= msg %></p>
+			    <% end %>
+			    </ul>
+			  </div>
+			<% end %>
 			<div class="form-group">
-	        	    <div class='input-group'>
+	        	<div class='input-group'>
 	                <%= f.text_field :guest_name, :class => 'form-control',:placeholder => '氏名' %>
-	                </div>
+	            </div>
 			</div>
 			<div class="form-group">
 	            	<div class='input-group'>

@@ -37,42 +37,14 @@
 			<%= render 'partial/review' %>
 		<% end %>
 	</div> <!-- col-md-8 -->
+		<div class="col-md-4">
+			<% if request.smart_phone? %>
+				<%= render 'partial/sidebar_sp',reservation: @reservation, count: @count %>
+			<% else %>
+				<%= render 'partial/sidebar_pc',reservation: @reservation, count: @count %>
+			<% end %>
+		</div>
 
-			<br>
-			<div class="col-md-4">
-			<div id="sidebar" >
-				<div id="nav", class="reservation">
-						<span class = "price">
-						 ¥ <%= @hotel.price.to_s(:currency) %>	
-						 </span>/1泊<br>
-						 <small>
-						 	 過去<%= guest_total(@hotel) %>人のお客様が宿泊しております。
-						 </small>
-					<% if user_signed_in? %>
-							<%= link_to "カレンダー作成へ", hotel_reservation_calendar_index_path(@hotel), class: "btn btn-info btn-sm" if current_user.id == @hotel.owner_id %>
-					<% end %>
-					<p class="line"></p>
-					<% if @reservation_calendar.empty? || @hotel.stop? %>
-						<p>現在、宿泊を受け付けておりません。</p>
-					<% else %>
-						<%= render 'reservations/form',reservation: @reservation, count: @count %>
-					<% end %>
-				</div>
-			</div>
-			<br>
-			<!-- side bar -->
-			<script>
-				var nav = $('#nav'),
-				offset = nav.offset();
-				$(window).scroll(function () {
-				  	if($(window).scrollTop() > offset.top - 20) {
-			    		nav.addClass('fixed');
-			 	 	} else {
-			    		nav.removeClass('fixed');
-			  		}
-					});
-			</script>
-			</div> <!-- col-md-4 -->
 
 		<!-- Google Map -->
 		<div class="col-md-8 google_map">
